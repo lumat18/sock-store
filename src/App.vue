@@ -2,25 +2,84 @@
   <div>
     <div class="nav-bar"></div>
     <div class="product">
-      <h1>{{ product }}</h1>
+      <div class="product-image">
+        <img :src="image"/>
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product }}</h1>
+        <p v-if="inventory > 10">In stock</p>
+        <p v-else-if="inventory <= 10">Almost out</p>
+        <p v-else>Out of stock</p>
+        <p v-if="onSale">On Sale!</p>
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+        <div v-for="variant in variants"
+             :key="variant.variantId"
+             class="color-box"
+             :style="{ backgroundColor: variant.variantColor }"
+             @mouseover="updateProduct(variant.variantImage)">
+        </div>
+      </div>
+      <select>
+        <option v-for="size in sizes">{{ size }}</option>
+      </select>
+      <button @click="addToCart" :disabled="inventory<=0" :class="{disabledButton: inventory<=0}">Add to Cart</button>
+      <button @click="removeFromCart" :disabled="cart<=0" :class="{disabledButton: cart<=0}">Remove from Cart</button>
+
+      <div class="cart">
+        <p>Cart({{ cart }})</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  data(){
-    return {
-      product: 'Socks'
+  export default {
+    data() {
+      return {
+        product: 'Socks',
+        image: './dist/vmSocks-green.jpg',
+        inventory: 8,
+        onSale: false,
+        details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+        variants: [
+          {
+            variantId: 2234,
+            variantColor: 'green',
+            variantImage: 'dist/vmSocks-green.jpg'
+          },
+          {
+            variantId: 2235,
+            variantColor: 'blue',
+            variantImage: 'dist/vmSocks-blue.jpg'
+          },
+        ],
+        sizes: ['S', 'M', 'L'],
+        cart: 0
+      }
+    },
+    methods: {
+      addToCart: function () {
+        this.cart += 1;
+        this.inventory -= 1;
+      },
+      removeFromCart: function () {
+        this.cart -= 1;
+        this.inventory += 1;
+      },
+      updateProduct: function (variantImage) {
+        this.image = variantImage;
+      }
     }
   }
-}
 </script>
 
 <style>
   body {
     font-family: tahoma;
-    color:#282828;
+    color: #282828;
     margin: 0px;
   }
 
