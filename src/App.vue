@@ -4,9 +4,9 @@
     <div class="cart">
       <p>Cart({{ cart }})</p>
     </div>
-    <product v-on:add-to-cart="addToCart"
-             v-on:remove-from-cart="removeFromCart"
-            :cart="cart"/>
+    <product @add-to-cart="addToCart"
+             @remove-from-cart="removeFromCart"
+             :is-cart="cart.length>0"/>
   </div>
 </template>
 
@@ -19,15 +19,20 @@
     },
     data() {
       return {
-        cart: 0
+        cart: [],
+        isCart: false
       }
     },
     methods: {
-      addToCart: function () {
-        this.cart += 1;
+      addToCart: function (id) {
+        //this.cart += 1;
+        this.cart.push(id)
       },
-      removeFromCart: function () {
-        this.cart -= 1;
+      removeFromCart: function (id) {
+        //this.cart -= 1;
+        if(this.cart.includes(id)) {
+          this.cart.splice(this.cart.indexOf(id), 1);
+        }
       }
     }
   }

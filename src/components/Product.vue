@@ -23,15 +23,15 @@
       <option v-for="size in sizes">{{ size }}</option>
     </select>
     <button @click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
-    <button @click="removeFromCart" :disabled="cart<=0" :class="{disabledButton: cart<=0}">Remove from Cart</button>
+    <button @click="removeFromCart" :disabled="!isCart" :class="{disabledButton: !isCart}">Remove from Cart</button>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      cart: {
-        type: Number
+      isCart: {
+        type: Boolean
       }
     },
     data() {
@@ -60,10 +60,10 @@
     },
     methods: {
       addToCart: function () {
-        this.$emit('add-to-cart');
+        this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
       },
       removeFromCart: function () {
-        this.$emit('remove-from-cart');
+        this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId);
       },
       updateProduct: function (index) {
         this.selectedVariant = index;
