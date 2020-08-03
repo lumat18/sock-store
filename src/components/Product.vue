@@ -18,37 +18,27 @@
            :style="{ backgroundColor: variant.variantColor }"
            @mouseover="updateProduct(index)">
       </div>
-    </div>
-    <p>
-      <select>
-        <option v-for="size in sizes">{{ size }}</option>
-      </select>
-    </p>
-    <button @click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
-    <button @click="removeFromCart" :disabled="!isCart" :class="{disabledButton: !isCart}">Remove from Cart</button>
-
-    <div>
-      <h2>Reviews</h2>
-      <p v-if="reviews.length === 0">There are no reviews yet</p>
-      <ul>
-        <li v-for="review in reviews">
-          <p>{{ review.name }}</p>
-          <p>{{ review.review }}</p>
-          <p>{{ review.rating }}</p>
-          <p>{{ review.recommend }}</p>
-        </li>
-      </ul>
+      <p>
+        <select>
+          <option v-for="size in sizes">{{ size }}</option>
+        </select>
+      </p>
+      <div class="buttons">
+        <button @click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
+        <button @click="removeFromCart" :disabled="!isCart" :class="{disabledButton: !isCart}">Remove from Cart</button>
+      </div>
     </div>
 
-    <product-review @review-submitted="addReview"/>
+    <ProductTabs :reviews="reviews" @review-sent="addReview"></ProductTabs>
   </div>
 </template>
 
 <script>
   import ProductReview from "./ProductReview";
+  import ProductTabs from "./ProductTabs";
 
   export default {
-    components: {ProductReview},
+    components: {ProductReview, ProductTabs},
     props: {
       isCart: {
         type: Boolean
@@ -113,6 +103,11 @@
 </script>
 
 <style scoped>
+  .buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 50px;
+  }
   .product {
     display: flex;
     flex-flow: wrap;
@@ -158,33 +153,5 @@
 
   .disabledButton {
     background-color: #d8d8d8;
-  }
-
-  .review-form {
-    width: 400px;
-    padding: 20px;
-    margin: 40px;
-    border: 1px solid #d8d8d8;
-  }
-
-  input {
-    width: 100%;
-    height: 25px;
-    margin-bottom: 20px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 60px;
-  }
-
-  .tab {
-    margin-left: 20px;
-    cursor: pointer;
-  }
-
-  .activeTab {
-    color: #16C0B0;
-    text-decoration: underline;
   }
 </style>

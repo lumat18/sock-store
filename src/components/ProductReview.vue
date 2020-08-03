@@ -25,8 +25,8 @@
       </select>
     </p>
     <p>
-      Would you recommend this product?<br/>
-      <input id="yes" name="recommend" type="radio" value="Yes, I'd recommend" v-model="recommend"><label for="yes">Yes</label> <br/>
+      Would you recommend this product?
+      <input id="yes" name="recommend" type="radio" value="Yes, I'd recommend" v-model="recommend"><label for="yes">Yes</label>
       <input id="no" name="recommend" type="radio" value="No, I wouldn't recommend" v-model="recommend"><label for="no">No</label>
     </p>
     <p>
@@ -74,5 +74,21 @@
 </script>
 
 <style scoped>
+  .review-form {
+    width: 400px;
+    padding: 20px;
+    margin: 40px;
+    border: 1px solid #d8d8d8;
+  }
 
+  input {
+    width: 100%;
+    height: 25px;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 60px;
+  }
 </style>

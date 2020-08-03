@@ -7,7 +7,6 @@
     <product @add-to-cart="addToCart"
              @remove-from-cart="removeFromCart"
              :is-cart="cart.length>0"/>
-    <product-review />
   </div>
 </template>
 
