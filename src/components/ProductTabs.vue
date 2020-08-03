@@ -20,7 +20,7 @@
       </ul>
     </div>
     <div v-show="selectedTab === 'Make a review'">
-      <ProductReview @review-submitted="addReview"/>
+      <ProductReview />
     </div>
   </div>
 
@@ -42,11 +42,6 @@
       return {
         tabs: ['Reviews', 'Make a review'],
         selectedTab: 'Reviews'
-      }
-    },
-    methods: {
-      addReview: function (productReview) {
-        this.$emit('review-sent', productReview);
       }
     }
   }

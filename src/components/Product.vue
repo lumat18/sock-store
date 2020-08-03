@@ -29,13 +29,14 @@
       </div>
     </div>
 
-    <ProductTabs :reviews="reviews" @review-sent="addReview"></ProductTabs>
+    <ProductTabs :reviews="reviews"></ProductTabs>
   </div>
 </template>
 
 <script>
   import ProductReview from "./ProductReview";
   import ProductTabs from "./ProductTabs";
+  import { eventBus } from "../main";
 
   export default {
     components: {ProductReview, ProductTabs},
@@ -78,9 +79,6 @@
       },
       updateProduct: function (index) {
         this.selectedVariant = index;
-      },
-      addReview(productReview) {
-        this.reviews.push(productReview);
       }
     },
     computed: {
@@ -98,6 +96,11 @@
           return this.brand + ' ' + this.product + ' are on sale';
         }
       }
+    },
+    mounted() {
+      eventBus.$on('review-submitted', productReview => {
+        this.reviews.push(productReview);
+      });
     }
   }
 </script>

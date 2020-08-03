@@ -36,6 +36,8 @@
 </template>
 
 <script>
+  import {eventBus} from "../main";
+
   export default {
     data() {
       return {
@@ -61,7 +63,7 @@
           this.rating = null;
           this.recommend = null;
 
-          this.$emit('review-submitted', productReview);
+          eventBus.$emit('review-submitted', productReview);
         } else {
           if (!this.name) this.errors.push('Name required');
           if (!this.review) this.errors.push('Review required');
