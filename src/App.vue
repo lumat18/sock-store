@@ -2,17 +2,17 @@
   <div>
     <div class="nav-bar"></div>
     <div class="cart">
-      <p>Cart({{ cart }})</p>
+      <p>Cart({{ cart.length }})</p>
     </div>
     <product @add-to-cart="addToCart"
              @remove-from-cart="removeFromCart"
              :is-cart="cart.length>0"/>
+    <product-review />
   </div>
 </template>
 
 <script>
   import Product from "./components/Product";
-
   export default {
     components: {
       Product
@@ -33,7 +33,7 @@
         if(this.cart.includes(id)) {
           this.cart.splice(this.cart.indexOf(id), 1);
         }
-      }
+      },
     }
   }
 

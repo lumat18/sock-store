@@ -19,16 +19,36 @@
            @mouseover="updateProduct(index)">
       </div>
     </div>
-    <select>
-      <option v-for="size in sizes">{{ size }}</option>
-    </select>
+    <p>
+      <select>
+        <option v-for="size in sizes">{{ size }}</option>
+      </select>
+    </p>
     <button @click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
     <button @click="removeFromCart" :disabled="!isCart" :class="{disabledButton: !isCart}">Remove from Cart</button>
+
+    <div>
+      <h2>Reviews</h2>
+      <p v-if="reviews.length === 0">There are no reviews yet</p>
+      <ul>
+        <li v-for="review in reviews">
+          <p>{{ review.name }}</p>
+          <p>{{ review.review }}</p>
+          <p>{{ review.rating }}</p>
+          <p>{{ review.recommend }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <product-review @review-submitted="addReview"/>
   </div>
 </template>
 
 <script>
+  import ProductReview from "./ProductReview";
+
   export default {
+    components: {ProductReview},
     props: {
       isCart: {
         type: Boolean
@@ -55,7 +75,8 @@
             variantQuantity: 0
           },
         ],
-        sizes: ['S', 'M', 'L']
+        sizes: ['S', 'M', 'L'],
+        reviews: []
       }
     },
     methods: {
@@ -67,6 +88,9 @@
       },
       updateProduct: function (index) {
         this.selectedVariant = index;
+      },
+      addReview(productReview) {
+        this.reviews.push(productReview);
       }
     },
     computed: {
