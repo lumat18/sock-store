@@ -7,7 +7,8 @@
             :key="index"
             @click="selectedTab=tab">{{ tab }}</span>
     </div>
-    <div v-if="selectedTab === 'Reviews'">
+
+    <div v-show="selectedTab === 'Reviews'">
       <h2>Reviews</h2>
       <p v-if="reviews.length === 0">There are no reviews yet</p>
       <ul>
@@ -19,8 +20,19 @@
         </li>
       </ul>
     </div>
+
     <div v-show="selectedTab === 'Make a review'">
       <ProductReview />
+    </div>
+
+    <div v-show="selectedTab === 'Shipping'">
+      <p>{{ shipping }}</p>
+    </div>
+
+    <div v-show="selectedTab === 'Details'">
+      <ul>
+        <li v-for="detail in details">{{ detail }}</li>
+      </ul>
     </div>
   </div>
 
@@ -36,11 +48,18 @@
       reviews: {
         type: Array,
         required: true
+      },
+      shipping: {
+        type: String,
+        required: true
+      },
+      details: {
+        type: Array,
       }
     },
     data() {
       return {
-        tabs: ['Reviews', 'Make a review'],
+        tabs: ['Reviews', 'Make a review', 'Shipping', 'Details'],
         selectedTab: 'Reviews'
       }
     }

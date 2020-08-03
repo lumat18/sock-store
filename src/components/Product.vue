@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <ProductTabs :reviews="reviews"></ProductTabs>
+    <ProductTabs :reviews="reviews" :shipping="shipping" :details="details"></ProductTabs>
   </div>
 </template>
 
@@ -48,6 +48,7 @@
     data() {
       return {
         product: 'Socks',
+        shipping: 'Shipping cost is 2.99$',
         brand: 'Vue Mastery',
         selectedVariant: 0,
         onSale: false,
